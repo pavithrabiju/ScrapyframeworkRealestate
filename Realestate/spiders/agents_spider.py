@@ -22,6 +22,23 @@ class AgentsSpider(scrapy.Spider):
             languages = agent.xpath('.//p[contains(@class, "agent-languages")]/text()').get().strip()
             description = agent.xpath('.//div[contains(@class, "agent-description")]/text()').get().strip()
 
+
+
+         #Clean and structure the data
+            cleaned_name = self.clean_data(name)
+            cleaned_job_title= self.clean_data(job_title)
+            cleaned_image_url = self.clean_data(image_url)
+            cleaned_address = self.clean_data(address)
+            cleaned_contact_details = self.clean_data(contact_details)
+            cleaned_office = self.clean_data(office)
+            cleaned_fax = self.clean_data(fax)
+            cleaned_cell = self.clean_data(cell)
+            cleaned_socail_accounts = self.clean_data(social_accounts)
+            cleaned_languages = self.clean_data(languages)
+            cleaned_description= [self.clean_data(description) for des in description]
+          
+           
+
             agent_data = {
                 'Name': name,
                 'Job Title': job_title,
@@ -42,3 +59,11 @@ class AgentsSpider(scrapy.Spider):
         with open(filename, 'w') as f:
             json.dump(data, f, indent=4)
         self.log(f'Saved data to {filename}')
+
+
+
+        def clean_data(self, data):
+        # Perform cleaning operations as required
+        # Example: Remove unwanted characters, whitespace, etc.
+         cleaned_data = data.strip()
+        return clean_data 
